@@ -24,19 +24,13 @@ class Board:
         self.board_type = board_type
 
     
-    def display_board(self, name):
+    def display_board(self):
         """
         Display the user's board
         """
-        print(f"{name}'s board.")
         for row in self.board_type:
             print(" ".join(row))
         print("\n")
-        
-
-board = Board(board_display)
-board.display_board("John")
-board.display_board("Opponent")
 
 
 class Ship:
@@ -50,16 +44,21 @@ class Ship:
         """
         self.board_type = board_type
 
-    def create_computer_ships(self):
+    def create_computer_ships(self, board_type):
         """
         Create ships with random co-ordinates for computer
+        and store them in a list
         """
+        computer_ships_row = []
+        computer_ships_column = []
         for i in range(3):
             self.row = randrange(board_size)
             self.column = randrange(board_size)
-            computer_coordinates.append({self.row, self.column})
+            computer_ships_row.append(self.row)
+            computer_ships_column.append(self.column)
         
-        print(computer_coordinates)
+        computer_coordinates = list(zip(computer_ships_row, computer_ships_column))
+        return computer_coordinates
 
     
     def set_ship_location(self):
@@ -70,4 +69,6 @@ class Ship:
 
 
 ship1 = Ship("Computer")
-ship1.create_computer_ships()
+print(ship1.create_computer_ships(board_display))
+board = Board(board_display)
+board.display_board()
