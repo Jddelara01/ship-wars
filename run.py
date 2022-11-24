@@ -24,7 +24,6 @@ class Board:
         """
         self.board_type = board_type
 
-
     def display_board(self, name):
         """
         Display the user's board
@@ -51,47 +50,74 @@ class Ship:
         Create ships with random co-ordinates for computer
         and store them in a list
         """
-        computer_ships_row = []
-        computer_ships_column = []
+        ships_row = []
+        ships_column = []
 
         for i in range(3):
             self.row = randrange(board_size)
             self.column = randrange(board_size)
-            computer_ships_row.append(self.row)
-            computer_ships_column.append(self.column)
+            ships_row.append(self.row)
+            ships_column.append(self.column)
         
-        computer_coordinates = list(zip(computer_ships_row, computer_ships_column))
+        computer_coordinates = list(zip(ships_row, ships_column))
         # need to check for validation to make sure there no duplicates
         return computer_coordinates
 
-    
     def create_user_ships(self):
         """
         Set the ship locations
         """
+        coordinates = []
         for i in range(3):
             self.row = randrange(board_size)
             self.column = randrange(board_size)
             self.board_type[self.row][self.column] = "*"
-            user_coordinates.append([self.row, self.column])   
+            coordinates.append((self.row, self.column))
+        
+        user_coordinates.append(coordinates)
+        return self.board_type
 
+    def attack_computer(self, row, column):
+        """
+        For user to attack the computer and check if
+        row and column hit a ship.
+        Update the board accordingly "O" for hits "X"
+        for misses
+        """
+        attack = (row, column)
+        for i in computer_coordinates:
+            # check if the attack co-ordinates is present in the list
+            if attack in i:
+                print("You hit a ship!")
+                self.board_type[row][column] = "O"
+            else:
+                print("You missed!")
+                self.board_type[row][column] = "X"
+        
+        return self.board_type
+
+    def attack_user(self):
+        """
+        Computer generates an attack to user
+        Update the board accordingly "O" for hits "X"
+        for misses
+        """
+        row = randrange(board_size)
+        column = randrange(board_size)
+        attack = (row, column)
+        for i in user_coordinates:
+            # check if the attack co-ordinates is present in the list
+            if attack in i:
+                print("Computer hit your ship!")
+                self.board_type[row][column] = "O"
+            else:
+                print("Computer missed!")
+                self.board_type[row][column] = "X"
+        
         return self.board_type
 
 
-def attack_computer(row, column):
-    """
-    For user to ttack the computer and check if
-    row and column hit a ship
-    """
-    attack = (row, column)
-    for i in computer_coordinates:
-        if attack in i:
-            print("You hit a ship!")
-        else:
-            print("You miss")
-
-
-def  StartGame():
+def StartGame():
     """
     Store the logic of the game here
     """
@@ -101,13 +127,16 @@ def  StartGame():
     computer_locations = Ship.create_computer_ships(computer)
     computer_coordinates.append(computer_locations)
     print(computer_coordinates)
-    user_locations = Ship.create_user_ships(user)
+    Ship.create_user_ships(user)
     print(user_coordinates)
 
     user.display_board("John")
     computer.display_board("Computer")
 
-    attack_computer(3,1)
+    Ship.attack_computer(computer, 3, 1)
+    computer.display_board("Computer")
+    Ship.attack_user(user)
+    user.display_board("John")
 
 
 StartGame()
