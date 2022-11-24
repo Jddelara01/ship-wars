@@ -10,7 +10,8 @@ computer_coordinates = []
 # Global variable for user ships coordinates
 user_coordinates = []
 # Glabal variable for game board
-board_display = [["."] * board_size for i in range(board_size)]
+user_board = [["."] * board_size for i in range(board_size)]
+computer_board = [["."] * board_size for i in range(board_size)]
 
 
 class Board:
@@ -23,11 +24,12 @@ class Board:
         """
         self.board_type = board_type
 
-    
-    def display_board(self):
+
+    def display_board(self, name):
         """
         Display the user's board
         """
+        print(f"{name}'s board")
         for row in self.board_type:
             print(" ".join(row))
         print("\n")
@@ -44,7 +46,7 @@ class Ship:
         """
         self.board_type = board_type
 
-    def create_computer_ships(self, board_type):
+    def create_computer_ships(self):
         """
         Create ships with random co-ordinates for computer
         and store them in a list
@@ -61,14 +63,24 @@ class Ship:
         return computer_coordinates
 
     
-    def set_ship_location(self):
+    def create_user_ships(self):
         """
         Set the ship locations
         """
-        pass
+        for i in range(3):
+            self.row = randrange(board_size)
+            self.column = randrange(board_size)
+            self.board_type[self.row][self.column] = "*"   
+
+        return self.board_type   
 
 
-ship1 = Ship("Computer")
-print(ship1.create_computer_ships(board_display))
-board = Board(board_display)
-board.display_board()
+user = Board(user_board)
+computer = Board(computer_board)
+
+computer_locations = Ship.create_computer_ships(computer)
+print(computer_locations)
+user_locations = Ship.create_user_ships(user)
+
+user.display_board("John")
+computer.display_board("Computer")
