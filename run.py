@@ -133,6 +133,10 @@ class Ship:
         return self.board_type
 
     def input_row():
+        """
+        User input a row number on where he wants to attack.
+        Validate the user input
+        """
         # max_lenght = board_size - 1
         try:
             row = int(input("Please enter a row number:\n"))
@@ -144,11 +148,18 @@ class Ship:
         return row
 
     def input_column():
+        """
+        User input a column number on where he wants to attack.
+        Validate the user input
+        """
         column = int(input("Please enter a column number:\n"))
 
         return column
 
     def reduce_user_hp():
+        """
+        When computer hits an user ship, user's hitpoints decrease by 1
+        """
         global user_hp
         user_hp -= 1
 
@@ -156,7 +167,25 @@ class Ship:
 
 
 def display_intro():
-    print("Welcome to SHIP-WARS!")
+    """
+    Print all the introduction message and the legend
+    of the game. This will help user understand the game
+    """
+    game_description = ("This is a single player game (User vs Computer).\n"
+                        "The aim of the game is to destroy oppenents ships.\n"
+                        "The user and the computer will take turns on "
+                        "attacking each other.\n"
+                        "If a ship is hit, the user/computer "
+                        "will lose 1 hit point.\n"
+                        "If computer hit points reaches 0, then the user "
+                        "have won, vice versa.\n"
+                        "Please see game legend below and Enjoy the game!\n")
+
+    print("Welcome to SHIP-WARS!\n")
+    print(game_description)
+    print("** '*' = user ship location **")
+    print("** 'O' = attack hit a ship **")
+    print("** 'X' = missed attack **\n")
 
 
 def StartGame():
