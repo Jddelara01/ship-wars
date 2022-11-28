@@ -32,7 +32,6 @@ class Board:
         """
         Display the user's board
         """
-        
         print(f"{name}'s board")
         for row in self.board_type:
             print(" ".join(row))
@@ -40,8 +39,13 @@ class Board:
 
     def input_board_size():
         global board_size
+        global user_board
+        global computer_board
         print("Board size minimum is 5x5 and maximum of 10x10")
         board_size = int(input("Please enter a size of the board:\n"))
+
+        user_board = [["."] * board_size for i in range(board_size)]
+        computer_board = [["."] * board_size for i in range(board_size)]
 
         return board_size
 
@@ -137,14 +141,20 @@ class Ship:
         User input a row number on where he wants to attack.
         Validate the user input
         """
-        # max_lenght = board_size - 1
-        try:
-            row = int(input("Please enter a row number:\n"))
-            return row
-        except ValueError:
-            print("You must input an integer")
-            Ship.input_row()
+        max_lenght = board_size - 1
+        while True:
+            try:
+                row = int(input("Please enter a row number:\n"))
+            except ValueError:
+                print("You must input an integer")
+                continue
 
+            if row < 0 or row > max_lenght:
+                print(f"Please enter a row number between 0 and {max_lenght}")
+                continue
+            else:
+                break
+        
         return row
 
     def input_column():
@@ -152,7 +162,19 @@ class Ship:
         User input a column number on where he wants to attack.
         Validate the user input
         """
-        column = int(input("Please enter a column number:\n"))
+        max_lenght = board_size - 1
+        while True:
+            try:
+                column = int(input("Please enter a column number:\n"))
+            except ValueError:
+                print("You must input an integer")
+                continue
+
+            if column < 0 or column > max_lenght:
+                print(f"Please enter a column number between 0 and {max_lenght}")
+                continue
+            else:
+                break    
 
         return column
 
@@ -194,7 +216,7 @@ def StartGame():
     """
     display_intro()
 
-    Board.input_board_size()
+    # Board.input_board_size()
     user = Board(user_board)
     computer = Board(computer_board)
     computer_locations = Ship.create_computer_ships(computer)
@@ -206,21 +228,18 @@ def StartGame():
     user.display_board("John")
     computer.display_board("Computer")
 
-    # row = Ship.input_row()
-    # print(row)
-
-    # while user_hp > 0:
-    #     row = Ship.input_row()
-    #     column = Ship.input_column()
-    #     Ship.attack_computer(computer, row, column)
-    #     computer.display_board("Computer")
-    #     Ship.attack_user(user)
-    #     user.display_board("John")
+    while user_hp > 0:
+        row = Ship.input_row()
+        column = Ship.input_column()
+        Ship.attack_computer(computer, row, column)
+        computer.display_board("Computer")
+        Ship.attack_user(user)
+        user.display_board("John")
     
-    # if user_hp == 0:
-    #     print("Computer won!")
-    # else:
-    #     print("User won")
+    if user_hp == 0:
+        print("Computer won!")
+    else:
+        print("User won")
 
 
 StartGame()
