@@ -121,6 +121,21 @@ class Ship:
         
         return self.board_type
 
+    def input_row():
+        # max_lenght = board_size - 1
+        try:
+            row = int(input("Please enter a row number:\n"))
+        except ValueError:
+            print("You must input an integer")
+            Ship.input_row()
+
+        return row
+
+    def input_column():
+        column = int(input("Please enter a column number:\n"))
+
+        return column
+
     def reduce_user_hp():
         global user_hp
         user_hp -= 1
@@ -144,15 +159,21 @@ def StartGame():
     user.display_board("John")
     computer.display_board("Computer")
 
-    # Ship.attack_computer(computer, 3, 1)
-    # computer.display_board("Computer")
-    # Ship.attack_user(user)
-    # user.display_board("John")
-    while user_hp > 0:
-        Ship.attack_computer(computer, 3, 1)
-        computer.display_board("Computer")
-        Ship.attack_user(user)
-        user.display_board("John")
+    row = Ship.input_row()
+    print(row)
+
+    # while user_hp > 0:
+    #     row = Ship.input_row()
+    #     column = Ship.input_column()
+    #     Ship.attack_computer(computer, row, column)
+    #     computer.display_board("Computer")
+    #     Ship.attack_user(user)
+    #     user.display_board("John")
+    
+    # if user_hp == 0:
+    #     print("Computer won!")
+    # else:
+    #     print("User won")
 
 
 StartGame()
