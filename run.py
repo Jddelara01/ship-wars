@@ -37,6 +37,13 @@ class Board:
             print(" ".join(row))
         print("\n")
 
+    def input_board_size():
+        global board_size
+        print("Board size minimum is 5x5 and maximum of 10x10")
+        board_size = int(input("Please enter a size of the board:\n"))
+
+        return board_size
+
 
 class Ship:
     """
@@ -56,6 +63,7 @@ class Ship:
         """
         ships_row = []
         ships_column = []
+        global board_size
 
         for i in range(3):
             self.row = randrange(board_size)
@@ -72,6 +80,8 @@ class Ship:
         Set the ship locations
         """
         coordinates = []
+        global board_size
+
         for i in range(3):
             self.row = randrange(board_size)
             self.column = randrange(board_size)
@@ -125,6 +135,7 @@ class Ship:
         # max_lenght = board_size - 1
         try:
             row = int(input("Please enter a row number:\n"))
+            return row
         except ValueError:
             print("You must input an integer")
             Ship.input_row()
@@ -143,13 +154,18 @@ class Ship:
         return user_hp
 
 
+def display_intro():
+    print("Welcome to SHIP-WARS!")
+
 def StartGame():
     """
     Store the logic of the game here
     """
+    display_intro()
+
+    # Board.input_board_size()
     user = Board(user_board)
     computer = Board(computer_board)
-
     computer_locations = Ship.create_computer_ships(computer)
     computer_coordinates.append(computer_locations)
     print(computer_coordinates)
@@ -159,8 +175,8 @@ def StartGame():
     user.display_board("John")
     computer.display_board("Computer")
 
-    row = Ship.input_row()
-    print(row)
+    # row = Ship.input_row()
+    # print(row)
 
     # while user_hp > 0:
     #     row = Ship.input_row()
