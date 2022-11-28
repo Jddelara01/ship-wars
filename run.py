@@ -38,11 +38,28 @@ class Board:
         print("\n")
 
     def input_board_size():
+        """
+        User input the size of the board and validate input
+        Set the global variables accordingly
+        """
         global board_size
         global user_board
         global computer_board
+
         print("Board size minimum is 5x5 and maximum of 10x10")
-        board_size = int(input("Please enter a size of the board:\n"))
+
+        while True:
+            try:
+                board_size = int(input("Please enter a size of the board:\n"))
+            except ValueError:
+                print("You must input an integer")
+                continue
+
+            if board_size < 5 or board_size > 10:
+                print("You can only enter a size between 5 and 10")
+                continue
+            else:
+                break
 
         user_board = [["."] * board_size for i in range(board_size)]
         computer_board = [["."] * board_size for i in range(board_size)]
@@ -66,19 +83,18 @@ class Ship:
         Create ships with random co-ordinates for computer
         and store them in a list
         """
-        ships_row = []
-        ships_column = []
+        coordinates = []
         global board_size
 
-        for i in range(3):
+        while len(coordinates) < 3:
             self.row = randrange(board_size)
             self.column = randrange(board_size)
-            ships_row.append(self.row)
-            ships_column.append(self.column)
+            if (self.row, self.column) in coordinates:
+                pass
+            else:
+                coordinates.append((self.row, self.column))
         
-        computer_coordinates = list(zip(ships_row, ships_column))
-        # need to check for validation to make sure there no duplicates
-        return computer_coordinates
+        computer_coordinates.append(coordinates)
 
     def create_user_ships(self):
         """
@@ -87,11 +103,14 @@ class Ship:
         coordinates = []
         global board_size
 
-        for i in range(3):
+        while len(coordinates) < 3:
             self.row = randrange(board_size)
             self.column = randrange(board_size)
-            self.board_type[self.row][self.column] = "*"
-            coordinates.append((self.row, self.column))
+            if (self.row, self.column) in coordinates:
+                pass
+            else:
+                self.board_type[self.row][self.column] = "*"
+                coordinates.append((self.row, self.column))
         
         user_coordinates.append(coordinates)
         return self.board_type
@@ -150,7 +169,7 @@ class Ship:
                 continue
 
             if row < 0 or row > max_lenght:
-                print(f"Please enter a row number between 0 and {max_lenght}")
+                print(f"Please enter a number between 0 and {max_lenght}")
                 continue
             else:
                 break
@@ -171,7 +190,7 @@ class Ship:
                 continue
 
             if column < 0 or column > max_lenght:
-                print(f"Please enter a column number between 0 and {max_lenght}")
+                print(f"Please enter a number between 0 and {max_lenght}")
                 continue
             else:
                 break    
@@ -216,11 +235,10 @@ def StartGame():
     """
     display_intro()
 
-    # Board.input_board_size()
+    Board.input_board_size()
     user = Board(user_board)
     computer = Board(computer_board)
-    computer_locations = Ship.create_computer_ships(computer)
-    computer_coordinates.append(computer_locations)
+    Ship.create_computer_ships(computer)
     print(computer_coordinates)
     Ship.create_user_ships(user)
     print(user_coordinates)
