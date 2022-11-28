@@ -32,6 +32,7 @@ class Board:
         """
         Display the user's board
         """
+        
         print(f"{name}'s board")
         for row in self.board_type:
             print(" ".join(row))
@@ -157,13 +158,14 @@ class Ship:
 def display_intro():
     print("Welcome to SHIP-WARS!")
 
+
 def StartGame():
     """
     Store the logic of the game here
     """
     display_intro()
 
-    # Board.input_board_size()
+    Board.input_board_size()
     user = Board(user_board)
     computer = Board(computer_board)
     computer_locations = Ship.create_computer_ships(computer)
