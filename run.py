@@ -9,9 +9,13 @@ board_size = 5
 computer_coordinates = []
 # Global variable for user ships coordinates
 user_coordinates = []
-# Glabal variable for game board
+# Global variable for game board
 user_board = [["."] * board_size for i in range(board_size)]
 computer_board = [["."] * board_size for i in range(board_size)]
+# Global variable to store hit points of user
+user_hp = 1
+# Global variable to store hit points of computer
+computer_hp = 1
 
 
 class Board:
@@ -93,7 +97,7 @@ class Ship:
             else:
                 print("You missed!")
                 self.board_type[row][column] = "X"
-        
+
         return self.board_type
 
     def attack_user(self):
@@ -110,11 +114,18 @@ class Ship:
             if attack in i:
                 print("Computer hit your ship!")
                 self.board_type[row][column] = "O"
+                Ship.reduce_user_hp()
             else:
                 print("Computer missed!")
                 self.board_type[row][column] = "X"
         
         return self.board_type
+
+    def reduce_user_hp():
+        global user_hp
+        user_hp -= 1
+
+        return user_hp
 
 
 def StartGame():
@@ -133,10 +144,15 @@ def StartGame():
     user.display_board("John")
     computer.display_board("Computer")
 
-    Ship.attack_computer(computer, 3, 1)
-    computer.display_board("Computer")
-    Ship.attack_user(user)
-    user.display_board("John")
+    # Ship.attack_computer(computer, 3, 1)
+    # computer.display_board("Computer")
+    # Ship.attack_user(user)
+    # user.display_board("John")
+    while user_hp > 0:
+        Ship.attack_computer(computer, 3, 1)
+        computer.display_board("Computer")
+        Ship.attack_user(user)
+        user.display_board("John")
 
 
 StartGame()
