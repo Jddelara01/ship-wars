@@ -82,6 +82,7 @@ class Ship:
         """
         Create ships with random co-ordinates for computer
         and store them in a list
+        Validate to make sure no duplicate coordinates
         """
         coordinates = []
         global board_size
@@ -98,7 +99,9 @@ class Ship:
 
     def create_user_ships(self):
         """
-        Set the ship locations
+        Create ships with random co-ordinates for user
+        and store them in a list
+        Validate to make sure no duplicate coordinates
         """
         coordinates = []
         global board_size
