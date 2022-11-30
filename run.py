@@ -28,6 +28,22 @@ class Board:
         """
         self.board_type = board_type
 
+    def input_user_name():
+        """
+        User input preferred name.
+        Maximum length of name is 20 chars
+        """
+        while True:
+            username = input("Please enter your name:\n")
+            if len(username) > 20:
+                print("Username invalid! (Maximum length = 20)")
+            elif username == "":
+                print("You did not input a name")
+            else:
+                break
+        
+        return username
+
     def display_board(self, name):
         """
         Display the user's board
@@ -276,6 +292,7 @@ def StartGame():
     """
     display_intro()
 
+    player_name = Board.input_user_name()
     Board.input_board_size()
     user = Board(user_board)
     computer = Board(computer_board)
@@ -287,7 +304,7 @@ def StartGame():
     Ship.create_user_ships(user)
     print(user_coordinates)
 
-    user.display_board("John")
+    user.display_board(player_name)
     computer.display_board("Computer")
 
     while user_hp > 0:
@@ -302,7 +319,7 @@ def StartGame():
             print("Computer won!")
             break
         elif computer_hp == 0:
-            print("User won")
+            print("Congratualation, you won!")
             break
         else:
             continue
