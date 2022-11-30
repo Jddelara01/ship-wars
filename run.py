@@ -4,7 +4,7 @@
 from random import randrange
 
 # Global variable for board size
-board_size = 5
+board_size = 0
 # Global variable for computer ships coordinates
 computer_coordinates = []
 # Global variable for user ships coordinates
@@ -13,9 +13,9 @@ user_coordinates = []
 user_board = [["."] * board_size for i in range(board_size)]
 computer_board = [["."] * board_size for i in range(board_size)]
 # Global variable to store hit points of user
-user_hp = 1
+user_hp = 0
 # Global variable to store hit points of computer
-computer_hp = 1
+computer_hp = 0
 
 
 class Board:
@@ -86,8 +86,9 @@ class Ship:
         """
         coordinates = []
         global board_size
+        global computer_hp
 
-        while len(coordinates) < 3:
+        while len(coordinates) < computer_hp:
             self.row = randrange(board_size)
             self.column = randrange(board_size)
             if (self.row, self.column) in coordinates:
@@ -105,8 +106,9 @@ class Ship:
         """
         coordinates = []
         global board_size
+        global user_hp
 
-        while len(coordinates) < 3:
+        while len(coordinates) < user_hp:
             self.row = randrange(board_size)
             self.column = randrange(board_size)
             if (self.row, self.column) in coordinates:
@@ -117,6 +119,32 @@ class Ship:
         
         user_coordinates.append(coordinates)
         return self.board_type
+
+    def input_number_of_ships():
+        """
+        User input number of ships for each player for this game
+        Minumum number of ships is 3 and maximum is 10
+        1 ship = 1 hp
+        """
+        global user_hp
+        global computer_hp
+
+        while True:
+            try:
+                ships_amount = int(input("Please enter number of ships\n" 
+                                         "for each player for this game:\n"))
+            except ValueError:
+                print("You must input an integer")
+                continue
+
+            if ships_amount < 3 or ships_amount > 10:
+                print("Please enter a number between 3 and 10")
+                continue
+            else:
+                break
+
+        user_hp = ships_amount
+        computer_hp = ships_amount
 
     def attack_computer(self, row, column):
         """
@@ -131,6 +159,8 @@ class Ship:
             if attack in i:
                 print("You hit a ship!")
                 self.board_type[row][column] = "O"
+                Ship.reduce_computer_hp()
+                print(f"Computer hp: {computer_hp}")
             else:
                 print("You missed!")
                 self.board_type[row][column] = "X"
@@ -152,6 +182,7 @@ class Ship:
                 print("Computer hit your ship!")
                 self.board_type[row][column] = "O"
                 Ship.reduce_user_hp()
+                print(f"User hp: {user_hp}")
             else:
                 print("Computer missed!")
                 self.board_type[row][column] = "X"
@@ -205,9 +236,16 @@ class Ship:
         When computer hits an user ship, user's hitpoints decrease by 1
         """
         global user_hp
-        user_hp -= 1
 
-        return user_hp
+        user_hp -= 1
+    
+    def reduce_computer_hp():
+        """
+        When user hits a computer ship, comptuer's hitpoints decrease by 1
+        """
+        global computer_hp
+
+        computer_hp -= 1
 
 
 def display_intro():
@@ -241,7 +279,10 @@ def StartGame():
     Board.input_board_size()
     user = Board(user_board)
     computer = Board(computer_board)
+    Ship.input_number_of_ships()
+    print(f"User hp: {user_hp}")
     Ship.create_computer_ships(computer)
+    print(f"Computer hp: {computer_hp}")
     print(computer_coordinates)
     Ship.create_user_ships(user)
     print(user_coordinates)
@@ -253,14 +294,18 @@ def StartGame():
         row = Ship.input_row()
         column = Ship.input_column()
         Ship.attack_computer(computer, row, column)
-        computer.display_board("Computer")
         Ship.attack_user(user)
+        computer.display_board("Computer")
         user.display_board("John")
-    
-    if user_hp == 0:
-        print("Computer won!")
-    else:
-        print("User won")
+
+        if user_hp == 0:
+            print("Computer won!")
+            break
+        elif computer_hp == 0:
+            print("User won")
+            break
+        else:
+            continue
 
 
 StartGame()
