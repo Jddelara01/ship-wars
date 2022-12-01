@@ -19,6 +19,8 @@ computer_attacks = []
 user_hp = 0
 # Global variable to store hit points of computer
 computer_hp = 0
+# Global variable for count the turns
+turns = 1
 
 
 class Board:
@@ -65,7 +67,7 @@ class Board:
         global user_board
         global computer_board
 
-        print("Board size minimum is 5x5 and maximum of 10x10")
+        print("Board size minimum is 5(5x5) and maximum of 10(10x10)")
 
         while True:
             try:
@@ -142,7 +144,7 @@ class Ship:
     def input_number_of_ships():
         """
         User input number of ships for each player for this game
-        Minumum number of ships is 3 and maximum is 10
+        Minimum number of ships is 3 and maximum is 10
         1 ship = 1 hp
         """
         global user_hp
@@ -150,8 +152,9 @@ class Ship:
 
         while True:
             try:
-                ships_amount = int(input("Please enter number of ships\n" 
-                                         "for each player for this game:\n"))
+                ships_amount = int(input("Please enter number of ships " 
+                                         "for each player for this game:\n"
+                                         "(minimum of 3 and maximum of 10)\n"))
             except ValueError:
                 print("You must input an integer")
                 continue
@@ -182,6 +185,7 @@ class Ship:
                 print(f"Computer hp: {computer_hp}")
             else:
                 print("You missed!")
+                print(f"Computer hp: {computer_hp}")
                 self.board_type[row][column] = "X"
 
         return self.board_type
@@ -207,6 +211,7 @@ class Ship:
                     print(f"User hp: {user_hp}")
                 else:
                     print("Computer missed!")
+                    print(f"User hp: {user_hp}")
                     self.board_type[row][column] = "X"
         
         return self.board_type
@@ -266,7 +271,6 @@ class Ship:
             return True
         else:
             user_attacks.append(value)
-            print(user_attacks)
             return False
 
     def validate_computer_attack(attack_row, attack_column):
@@ -281,7 +285,6 @@ class Ship:
             return True
         else:
             computer_attacks.append(value)
-            print(computer_attacks)
             return False
 
     def reduce_user_hp():
@@ -300,6 +303,12 @@ class Ship:
 
         computer_hp -= 1
 
+    def add_turn():
+        global turns
+
+        print(f"Turn: {turns}")
+        turns += 1
+
 
 def display_intro():
     """
@@ -309,11 +318,16 @@ def display_intro():
     game_description = ("This is a single player game (User vs Computer).\n"
                         "The aim of the game is to destroy oppenents ships.\n"
                         "The user and the computer will take turns on "
-                        "attacking each other.\n"
+                        "attacking each other.\n" 
+                        "User will have to input the co-ordinates (n, n) of "
+                        "where he/she thinks the computer ships are located.\n" 
+                        "To input the co-ordinates user has to input the row "
+                        "number and column number.\n"
                         "If a ship is hit, the user/computer "
                         "will lose 1 hit point.\n"
-                        "If computer hit points reaches 0, then the user "
-                        "have won, vice versa.\n"
+                        "If computer hit points reaches 0, then the user have "
+                        "won, vice versa but if both hit points reaches 0,"
+                        "then it is a draw\n"
                         "Please see game legend below and Enjoy the game!\n")
 
     print("Welcome to SHIP-WARS!\n")
@@ -321,6 +335,13 @@ def display_intro():
     print("** '*' = user ship location **")
     print("** 'O' = attack hit a ship **")
     print("** 'X' = missed attack **\n")
+    print("Board format is row: 0 and column: 0 would be the very top left\n")
+
+
+def print_attack_instructions(board_size):
+    board_size -= 1
+    print(f"Enter a number from 0 - {board_size}\n"
+          "Where 0 is the very top left.\n")
 
 
 def StartGame():
@@ -336,31 +357,32 @@ def StartGame():
     Ship.input_number_of_ships()
     print(f"User hp: {user_hp}")
     Ship.create_computer_ships(computer)
-    print(f"Computer hp: {computer_hp}")
-    print(computer_coordinates)
+    print(f"Computer hp: {computer_hp}\n")
     Ship.create_user_ships(user)
-    print(user_coordinates)
 
     user.display_board(player_name)
     computer.display_board("Computer")
+    Ship.add_turn()
 
-    while user_hp > 0:
+    while user_hp > 0 and computer_hp > 0:
+        print_attack_instructions(board_size)
         row = Ship.input_row()
         column = Ship.input_column()
         if Ship.validate_user_attack(row, column):
-            continue
+            pass
         else:
             Ship.attack_computer(computer, row, column)
             computer.display_board("Computer")
             Ship.attack_user(user)
             user.display_board("John")
+            Ship.add_turn()
 
     if user_hp == 0 and computer_hp == 0:
-        print("No Winners!")
+        print(f"It is a DRAW!")
     elif user_hp == 0:
-        print("Computer won!")
+        print(f"Game Over, you lost!")
     elif computer_hp == 0:
-        print("Congratualation, you won!")
+        print(f"Congratualation, you won!")
     else:
         print("Something went wrong!")
    
