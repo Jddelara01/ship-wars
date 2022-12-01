@@ -271,8 +271,8 @@ class Ship:
 
     def validate_computer_attack(attack_row, attack_column):
         """
-        Check if the user input row and column is already used before
-        This will help avoid user inputting the same co-ordinates
+        Check if the computer random row and column is already used before
+        This will help avoid computer inputting the same co-ordinates
         """
         global computer_attacks
         value = (attack_row, attack_column)
@@ -363,6 +363,6 @@ def StartGame():
         print("Congratualation, you won!")
     else:
         print("Something went wrong!")
-    
+   
 
 StartGame()
