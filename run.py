@@ -12,6 +12,9 @@ user_coordinates = []
 # Global variable for game board
 user_board = [["."] * board_size for i in range(board_size)]
 computer_board = [["."] * board_size for i in range(board_size)]
+# Global variable to store user and computer attacks
+user_attacks = []
+computer_attacks = []
 # Global variable to store hit points of user
 user_hp = 0
 # Global variable to store hit points of computer
@@ -192,16 +195,19 @@ class Ship:
         row = randrange(board_size)
         column = randrange(board_size)
         attack = (row, column)
-        for i in user_coordinates:
-            # check if the attack co-ordinates is present in the list
-            if attack in i:
-                print("Computer hit your ship!")
-                self.board_type[row][column] = "O"
-                Ship.reduce_user_hp()
-                print(f"User hp: {user_hp}")
-            else:
-                print("Computer missed!")
-                self.board_type[row][column] = "X"
+        if Ship.validate_computer_attack(row, column):
+            Ship.attack_user(self)
+        else: 
+            for i in user_coordinates:
+                # check if the attack co-ordinates is present in the list
+                if attack in i:
+                    print("Computer hit your ship!")
+                    self.board_type[row][column] = "O"
+                    Ship.reduce_user_hp()
+                    print(f"User hp: {user_hp}")
+                else:
+                    print("Computer missed!")
+                    self.board_type[row][column] = "X"
         
         return self.board_type
 
@@ -246,6 +252,37 @@ class Ship:
                 break    
 
         return column
+
+    def validate_user_attack(attack_row, attack_column):
+        """
+        Check if the user input row and column is already used before
+        This will help avoid user inputting the same co-ordinates
+        """
+        global user_attacks
+        value = (attack_row, attack_column)
+
+        if value in user_attacks:
+            print("Coordinates already used.")
+            return True
+        else:
+            user_attacks.append(value)
+            print(user_attacks)
+            return False
+
+    def validate_computer_attack(attack_row, attack_column):
+        """
+        Check if the user input row and column is already used before
+        This will help avoid user inputting the same co-ordinates
+        """
+        global computer_attacks
+        value = (attack_row, attack_column)
+
+        if value in computer_attacks:
+            return True
+        else:
+            computer_attacks.append(value)
+            print(computer_attacks)
+            return False
 
     def reduce_user_hp():
         """
@@ -310,19 +347,22 @@ def StartGame():
     while user_hp > 0:
         row = Ship.input_row()
         column = Ship.input_column()
-        Ship.attack_computer(computer, row, column)
-        Ship.attack_user(user)
-        computer.display_board("Computer")
-        user.display_board("John")
-
-        if user_hp == 0:
-            print("Computer won!")
-            break
-        elif computer_hp == 0:
-            print("Congratualation, you won!")
-            break
-        else:
+        if Ship.validate_user_attack(row, column):
             continue
+        else:
+            Ship.attack_computer(computer, row, column)
+            computer.display_board("Computer")
+            Ship.attack_user(user)
+            user.display_board("John")
 
+    if user_hp == 0 and computer_hp == 0:
+        print("No Winners!")
+    elif user_hp == 0:
+        print("Computer won!")
+    elif computer_hp == 0:
+        print("Congratualation, you won!")
+    else:
+        print("Something went wrong!")
+    
 
 StartGame()
