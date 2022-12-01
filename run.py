@@ -378,11 +378,11 @@ def StartGame():
             Ship.add_turn()
 
     if user_hp == 0 and computer_hp == 0:
-        print(f"It is a DRAW!")
+        print("It is a DRAW!")
     elif user_hp == 0:
-        print(f"Game Over, you lost!")
+        print("Game Over, you lost!")
     elif computer_hp == 0:
-        print(f"Congratualation, you won!")
+        print("Congratualation, you won!")
     else:
         print("Something went wrong!")
    
