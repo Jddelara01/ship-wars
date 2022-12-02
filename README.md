@@ -1,31 +1,39 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Ship-Wars
 
-Welcome Jddelara01,
+Ship-Wards is a Python terminal game, which was developed using gitpod and has been deployed in Heroku.
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+Users will be going against the computer. For the user to win, he/she has to destroy all computer ships by guessing the correct co-ordinates. Each ships is has 1 co-ordinates(row, column) and each takes 1 slot in the game board.
 
-## Reminders
+![Responsive Mockup]()
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+----
 
-## Creating the Heroku app
+## Instructions
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+This is a single player game (User vs Computer). The aim of the game is to destroy oppenents ships. The user and the computer will take turns on attacking each other. User will have to input the co-ordinates (n, n) of where he/she thinks the computer ships are located. To input the co-ordinates user has to input the row number and column number. If a ship is hit, the user/computer will lose 1 hit point. If computer hit points reaches 0, then the user have won and vice versa but if both hit points reaches 0, then it is a draw.
 
-1. `heroku/python`
-2. `heroku/nodejs`
+Game Legend:
+'*' = user ship location
+'O' = attack hit a ship
+'X' = missed attack
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+For more information about the game, please check [Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game))
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+## Features
 
-Connect your GitHub repository and deploy as normal.
+In this section, I will be going through the different functionalities of the game and I will provide descriptions for each functionalities and what the functionality do. 
 
-## Constraints
+### Current Features
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+- _Input User Name_
+    - The first thing the game will ask user is to input his/her preffered name.
+    - This name will then be used to let user know which is his/her board.
 
------
-Happy coding!
+![Input User Name](/images/input_name.png)
+
+- _Input Board Size_
+    - This functionality will ask user to input the board size he/she prefers.
+    - The board has a minimum size of 5 and maximum size of 10
+    - This also has a validation, when user inputs an incorrect value (not an integer, number that is less than or more than the minimum and maximum size), the user will then be notified that they have input an invalid value and will be asked to input the board size again.
+
+![Input Board Size](/images/input_board_size.png)
