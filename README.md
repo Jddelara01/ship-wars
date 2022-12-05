@@ -57,3 +57,39 @@ In this section, I will be going through the different functionalities of the ga
     - The size of the board (the row and column) is based on the inputted number by the user for the board size.
 
 ![Display Board](/images/display_board.png)
+
+- _Increase Turn_
+    - There is a functionality to keep track of the turns.
+    - After the user and the computer attack, the turn will be incremented by 1 and will be displayed for the user to see how many turns have passed and the current turn.
+    - Each turn, the user and the computer will take turns attacking each other.
+
+- _Reduce Hit Points_
+    - User and the computer will have hit points(hp). 1 Ship = 1 Hit points. 
+    - The hp for the user and computer will be displayed after the user inputted the number of ships and also every after turn.
+    - User and computer hp will be reduce by 1 everytime the user/computer ship were hit. Hp for the user will then be updated to help user know how many hp he/she and the computer currently have.
+    - When user hp is reduced to zero, the computer wins. If the computer hp is reduced to zero, then user wins. There could also be a possibility of draw if both user and computer hp is reduced to zero at the same turn.
+
+- _User Attack_
+    - The user will be asked to guess the coordinates of the computer ships by inputting the row number and column number.
+    - If the user guessed is correct, it would then hit a computer ship and the computer board will display "O" on the coordinate the user has inputted. But if it is a miss, the computer board will then display an "X".
+    - The max number of row and column that a user could input would be based on the inputted board size (minus 1 as the index starts at 0)
+    - There is also a validation to make sure that the user does not input an invalid value (not an integer, number that is less than 0 or more than the maximum size of the board) for the row and column.
+    - The user will then be notified that they have input an invalid value and will be asked to input a row/column number again.
+
+![User Attack](/images/user_attack.png)
+
+- _Computer Attack_
+    - This functionality will let computer attack the user by generating a random row number and column number(coordinates).
+    - If computer attack hits a user ship, the user board will be updated and the "*" in the board will be changed to "O" to let user know that the user has hit this ship.
+    - If computer attack missed, the user board will be updated and will display an "X" into the location/coordinate of the computer attack.
+    - There is also a validation to make sure that the randomly generated attack has correct values.
+
+![Computer Attack](/images/computer_attack.png)
+
+- _Validate Attack_
+    - Validate attack functionality will help prevent the user and computer attack the same co-ordinate twice.
+    - User will be notified and will be asked to attack(input a row number a column number) again, the he/she has inputted a coordinate that was already used on an attack before.
+    - The computer will generate new random number for the row and column if the generated row and column number was already used in the previous attacks.
+
+![Validate Attack](/images/validate_attack.png)
+
