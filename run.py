@@ -374,7 +374,7 @@ def StartGame():
             Ship.attack_computer(computer, row, column)
             computer.display_board("Computer")
             Ship.attack_user(user)
-            user.display_board("John")
+            user.display_board(player_name)
             Ship.add_turn()
 
     if user_hp == 0 and computer_hp == 0:
