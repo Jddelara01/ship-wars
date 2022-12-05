@@ -46,7 +46,7 @@ class Board:
                 print("You did not input a name")
             else:
                 break
-        
+
         return username
 
     def display_board(self, name):
@@ -116,7 +116,7 @@ class Ship:
                 pass
             else:
                 coordinates.append((self.row, self.column))
-        
+
         computer_coordinates.append(coordinates)
 
     def create_user_ships(self):
@@ -137,7 +137,6 @@ class Ship:
             else:
                 self.board_type[self.row][self.column] = "*"
                 coordinates.append((self.row, self.column))
-        
         user_coordinates.append(coordinates)
         return self.board_type
 
@@ -152,7 +151,7 @@ class Ship:
 
         while True:
             try:
-                ships_amount = int(input("Please enter number of ships " 
+                ships_amount = int(input("Please enter number of ships "
                                          "for each player for this game:\n"
                                          "(minimum of 3 and maximum of 10)\n"))
             except ValueError:
@@ -201,7 +200,7 @@ class Ship:
         attack = (row, column)
         if Ship.validate_computer_attack(row, column):
             Ship.attack_user(self)
-        else: 
+        else:
             for i in user_coordinates:
                 # check if the attack co-ordinates is present in the list
                 if attack in i:
@@ -213,7 +212,7 @@ class Ship:
                     print("Computer missed!")
                     print(f"User hp: {user_hp}")
                     self.board_type[row][column] = "X"
-        
+
         return self.board_type
 
     def input_row():
@@ -234,7 +233,7 @@ class Ship:
                 continue
             else:
                 break
-        
+
         return row
 
     def input_column():
@@ -254,7 +253,7 @@ class Ship:
                 print(f"Please enter a number between 0 and {max_lenght}")
                 continue
             else:
-                break    
+                break
 
         return column
 
@@ -294,7 +293,7 @@ class Ship:
         global user_hp
 
         user_hp -= 1
-    
+
     def reduce_computer_hp():
         """
         When user hits a computer ship, comptuer's hitpoints decrease by 1
@@ -318,9 +317,9 @@ def display_intro():
     game_description = ("This is a single player game (User vs Computer).\n"
                         "The aim of the game is to destroy oppenents ships.\n"
                         "The user and the computer will take turns on "
-                        "attacking each other.\n" 
+                        "attacking each other.\n"
                         "User will have to input the co-ordinates (n, n) of "
-                        "where he/she thinks the computer ships are located.\n" 
+                        "where he/she thinks the computer ships are located.\n"
                         "To input the co-ordinates user has to input the row "
                         "number and column number.\n"
                         "If a ship is hit, the user/computer "
@@ -385,6 +384,6 @@ def StartGame():
         print("Congratualation, you won!")
     else:
         print("Something went wrong!")
-   
+
 
 StartGame()
