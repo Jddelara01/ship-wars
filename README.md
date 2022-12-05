@@ -111,6 +111,11 @@ And I also created the StartGame method outside both classses, this is where I a
 
 ## Testing
 
-Check!
+I have manually tested this project by doing the following:
+    - Passed the code through a PEP8 linter and confirmed there no problems
+    - Tested my validation by inputting incorrect values (gave a string instead of integer, provided numbers that are out of range and input the same coordinates twice)
+    - Tested in gitpod terminal and at the heroku terminal
+
+[Pep8ci](https://pep8ci.herokuapp.com/)
 
 
