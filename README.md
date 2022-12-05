@@ -93,3 +93,24 @@ In this section, I will be going through the different functionalities of the ga
 
 ![Validate Attack](/images/validate_attack.png)
 
+### Future Features
+    - Ask user to input the co-ordinate on where he/she wants to put her ships
+    - Ask user to set a turn limit, so that if that turn limit is reached but user has still not destroyed all of the computer ships, then the user will lose.
+    - Increase the size of the ship from 1 coordinate to 2-4 coordinates.
+
+## Data Model
+I went with a 2 class approach as my model, Board class and Ship class.
+
+Board class will create an instance of the board for the user and computer. It will also have the method to input the name of the board (user/computer), a method to set the size of the board based on the user input and a method to display the user and computer board.
+
+Ship class has the functionality to create ships based (with the help of random number generator API) on the number of ships the user has inputted. The ship class also has the attack functionality that allows the user and computer attack each other. It also has a functionality to validate the user or computer attacks and a functionality that reduces the hit points of the user or computer if a user or computer ship is hit. Finally a functionality to increase the turns.
+
+I have also created multiple Global variables to store value that could be used in both the board and ship class.
+
+And I also created the StartGame method outside both classses, this is where I am going to combine all the methods for each classed to help run the game based of the logic that I have for the game. This StartGame method will be the only method that I will call to run the app/game.
+
+## Testing
+
+Check!
+
+
