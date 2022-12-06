@@ -1,10 +1,10 @@
 # Ship-Wars
 
-Ship-Wards is a Python terminal game, which was developed using gitpod and has been deployed in Heroku.
+Ship-Wars is a Python terminal game, which was developed using gitpod and has been deployed in Heroku.
 
 Users will be going against the computer. For the user to win, he/she has to destroy all computer ships by guessing the correct co-ordinates. Each ships is has 1 co-ordinates(row, column) and each takes 1 slot in the game board.
 
-![Responsive Mockup]()
+![Responsive Mockup](/images/project_mockup.png)
 
 ----
 
