@@ -111,11 +111,54 @@ And I also created the StartGame method outside both classses, this is where I a
 
 ## Testing
 
+### Manual Testing
+
 I have manually tested this project by doing the following:
     - Passed the code through a PEP8 linter and confirmed there no problems
     - Tested my validation by inputting incorrect values (gave a string instead of integer, provided numbers that are out of range and input the same coordinates twice)
     - Tested in gitpod terminal and at the heroku terminal
 
-[Pep8ci](https://pep8ci.herokuapp.com/)
+### Validator Testing
+
+- PEP8
+    - No errors found in [Pep8ci](https://pep8ci.herokuapp.com/)
+
+### Known Bugs
+
+- Board size not getting updated correctly
+    - There is a functionality that would ask user to input the size of the board and based on the user input, the size of the board should be adjusted accordingly. Unfortunately, this is not the case and whatever the user input the program is throwing an out of bound exception.
+
+- Computer attack that hit a user ship is not reflecting in the board
+    - Whenever the computer hits a user ship, it is not being reflected in the board even though there is a message saying that "Computer hit your ship".
+
+### Resolved Bugs
+
+- Board size not getting updated correctly
+    - I observed that the global variable for the game board is not getting updated because it is not being called in the input_board_size functionality. Once I added the global variable for the game board in input_board_size functionality the bug was fixed.
+
+- Computer attack that hit a  user ship is not reflecting in the board
+    - The reason for this bug is because the computer attack is generating the same coordinates as the previous attacked that already hit. To resolve this bug, I added a validation to make sure that computer attacks (coordinates) are not being duplicated.
+
+### Unresolved Bugs
+
+- N/A
+
+## Deployment
+
+As I am using python for this project, this project is deployed in Heroku. The steps to deploy are as follows:
+- Create new app in Heroku
+- Set a unique name for the app and choose the region I am currently in
+- In the settings tab, add the buildpacks required. I added Python first and then NodeJS. It should always be in this order
+- In the deploy tab, connect Heroku app to github repository of where the project is stored
+- Click on deploy
+
+## Credits
+
+- To get more idea about the battle ship game I looked at the following:
+    - [Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game))
+    - [CodeInstitute](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+PE_PAGPPF+2021_Q2/courseware/b3378fc1159e43e3b70916fdefdfae51/605f34e006594dc4ae19f5e60ec75e2e/)
+    - [How to Code Battleship in Python - Single Player Game](https://www.youtube.com/watch?v=tF1WRCrd_HQ&t=0s&ab_channel=KnowledgeMavens)
+    - [Bigmonty12](https://bigmonty12.github.io/battleship)
+    - [Refactoring a Battleship Game in Python // Code Roast Part 1 of 2](https://www.youtube.com/watch?v=u3yo-TjeIDg&t=0s&ab_channel=ArjanCodes)
 
 
