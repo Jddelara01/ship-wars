@@ -130,8 +130,10 @@ class Ship:
         global user_hp
 
         while len(coordinates) < user_hp:
+            # Generate random numbers to create a random attack
             self.row = randrange(board_size)
             self.column = randrange(board_size)
+            # Check if the coordinates was already used before
             if (self.row, self.column) in coordinates:
                 pass
             else:
@@ -303,6 +305,10 @@ class Ship:
         computer_hp -= 1
 
     def add_turn():
+        """
+        Turn counter, to let user know what the current turn is
+        Turn gets incremented by 1 after user and computer attacks
+        """
         global turns
 
         print(f"Turn: {turns}")
